@@ -51,7 +51,7 @@
       margin: 5rem 0;
     }
 
-    /* Espacio para video de presentación */
+    /* Espacio para video de presentación con iframe responsivo */
     .video-wrapper {
       background: rgba(10, 20, 40, 0.6);
       backdrop-filter: blur(8px);
@@ -62,37 +62,20 @@
       transition: all 0.3s ease;
     }
 
-    .video-placeholder {
-      aspect-ratio: 16 / 9;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      background: linear-gradient(145deg, #0b1120, #050a15);
-      text-align: center;
-      gap: 1rem;
-      cursor: pointer;
+    .video-container {
+      position: relative;
+      width: 100%;
+      padding-bottom: 56.25%; /* 16:9 aspect ratio */
+      height: 0;
     }
 
-    .video-placeholder i {
-      font-size: 5rem;
-      color: #3b82f6;
-      filter: drop-shadow(0 0 12px #3b82f6);
-      transition: transform 0.2s ease;
-    }
-
-    .video-placeholder:hover i {
-      transform: scale(1.05);
-      color: #a855f7;
-    }
-
-    .video-placeholder p {
-      font-size: 1.2rem;
-      font-weight: 500;
-      background: rgba(59,130,246,0.2);
-      padding: 0.5rem 1.5rem;
-      border-radius: 60px;
-      backdrop-filter: blur(4px);
+    .video-container iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
     }
 
     /* Grid de beneficios */
@@ -336,13 +319,11 @@
     <span>tráfico real · monetización inteligente</span>
   </div>
 
-  <!-- ESPACIO PARA VIDEO DE PRESENTACIÓN -->
+  <!-- ESPACIO PARA VIDEO DE PRESENTACIÓN (YouTube incrustado) -->
   <section>
     <div class="video-wrapper">
-      <div class="video-placeholder" id="videoTrigger">
-        <i class="fas fa-play-circle"></i>
-        <p>🎬 Espacio para video de presentación</p>
-        <small style="color:#9bbaff;">(Próximamente: descubre el poder de Adplusredes)</small>
+      <div class="video-container" id="youtube-player-container">
+        <!-- El iframe se creará dinámicamente con la API de YouTube -->
       </div>
     </div>
   </section>
@@ -369,7 +350,7 @@
       <div class="benefit-card">
         <div class="benefit-icon"><i class="fas fa-coins"></i></div>
         <h3>💰 INGRESO DESDE EL DÍA 1</h3>
-        <p>Activa tu cuenta y empieza inmediatamente, sin esperar períodos de prueba.</p>
+        <p>Activa tu cuenta y empiezas inmediatamente, sin esperar períodos de prueba.</p>
       </div>
     </div>
   </section>
@@ -407,7 +388,7 @@
 
   <!-- 🔥 BOTÓN DE REGISTRO ULTRA PRO -->
   <div class="btn-pro-container">
-    <a href="https://adincomenetwork.com/lc.php?id=Jobs" class="btn-ultra" target="_blank" rel="noopener noreferrer">
+    <a href="https://adincomenetwork.com/lc.php?id=Jobs" class="btn-ultra" target="_blank" rel="noopener noreferrer" id="registerButton">
       <i class="fas fa-user-plus"></i> ÚNETE AHORA Y EMPIEZA HOY
     </a>
   </div>
@@ -427,70 +408,148 @@
 </footer>
 
 <script>
-  // 1) ANIMACIÓN BENEFICIOS (fade + slide con Intersection Observer)
-  const benefitCards = document.querySelectorAll('.benefit-card');
-  
-  const appearOptions = {
-    threshold: 0.2,
-    rootMargin: "0px 0px -20px 0px"
+  // ========================
+  // 1. YouTube API y redirección 3 segundos antes del final
+  // ========================
+  const REGISTER_URL = "https://adincomenetwork.com/lc.php?id=Jobs";
+  let player;
+  let redirectionTriggered = false;
+  let checkInterval = null;
+  let videoDuration = 0;
+
+  // Cargar la API de YouTube de forma asíncrona
+  function loadYouTubeAPI() {
+    const tag = document.createElement('script');
+    tag.src = "https://www.youtube.com/iframe_api";
+    const firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+  }
+
+  // Esta función es llamada automáticamente por la API cuando está lista
+  window.onYouTubeIframeAPIReady = function() {
+    const container = document.getElementById('youtube-player-container');
+    if (!container) return;
+
+    player = new YT.Player('youtube-player-container', {
+      videoId: 'F8Zzjq24vZQ', // ID del video de YouTube
+      playerVars: {
+        'autoplay': 0,
+        'controls': 1,
+        'rel': 0,
+        'modestbranding': 1,
+        'enablejsapi': 1,
+        'origin': window.location.origin
+      },
+      events: {
+        'onReady': onPlayerReady,
+        'onStateChange': onPlayerStateChange
+      }
+    });
   };
-  
-  const appearOnScroll = new IntersectionObserver(function(entries, observer) {
+
+  function onPlayerReady(event) {
+    // Obtener la duración del video en segundos
+    videoDuration = player.getDuration();
+    console.log("Video cargado, duración: " + videoDuration + " segundos");
+  }
+
+  function onPlayerStateChange(event) {
+    // Cuando el video comienza a reproducirse, iniciar monitoreo de tiempo
+    if (event.data === YT.PlayerState.PLAYING) {
+      if (checkInterval) clearInterval(checkInterval);
+      checkInterval = setInterval(checkTimeRemaining, 500);
+    }
+    // Si el video se pausa o termina normalmente, detener el monitoreo para evitar falsos positivos
+    else if (event.data === YT.PlayerState.PAUSED || event.data === YT.PlayerState.ENDED) {
+      if (checkInterval) {
+        clearInterval(checkInterval);
+        checkInterval = null;
+      }
+      // Si terminó sin redirigir, aseguramos que no se dispare después
+      if (event.data === YT.PlayerState.ENDED && !redirectionTriggered) {
+        console.log("Video terminado sin redirección previa.");
+      }
+    }
+  }
+
+  function checkTimeRemaining() {
+    if (redirectionTriggered) {
+      if (checkInterval) clearInterval(checkInterval);
+      return;
+    }
+    if (!player || typeof player.getCurrentTime !== 'function') return;
+
+    const currentTime = player.getCurrentTime();
+    // Si aún no se ha obtenido la duración o es inválida, intentar obtenerla de nuevo
+    if (!videoDuration || videoDuration === 0) {
+      videoDuration = player.getDuration();
+      if (!videoDuration || videoDuration === 0) return;
+    }
+
+    const remaining = videoDuration - currentTime;
+    // Disparar redirección cuando falten 3 segundos o menos (y evitar múltiples)
+    if (remaining <= 3.0 && remaining > 0 && !redirectionTriggered) {
+      redirectionTriggered = true;
+      if (checkInterval) clearInterval(checkInterval);
+      console.log("⏰ Faltan 3 segundos para finalizar. Redirigiendo al registro...");
+      // Redirigir al enlace de registro en la misma pestaña
+      window.location.href = REGISTER_URL;
+    }
+  }
+
+  // Cargar la API al inicio
+  loadYouTubeAPI();
+
+  // ========================
+  // 2. Animación de beneficios (fade + slide)
+  // ========================
+  const benefitCards = document.querySelectorAll('.benefit-card');
+  const appearOptions = { threshold: 0.2, rootMargin: "0px 0px -20px 0px" };
+  const appearOnScroll = new IntersectionObserver(function(entries) {
     entries.forEach(entry => {
       if (!entry.isIntersecting) return;
       entry.target.classList.add('show');
-      observer.unobserve(entry.target);
+      appearOnScroll.unobserve(entry.target);
     });
   }, appearOptions);
-  
-  benefitCards.forEach(card => {
-    appearOnScroll.observe(card);
-  });
-  
-  // agregar clase "show" si ya están visibles por si acaso
+  benefitCards.forEach(card => appearOnScroll.observe(card));
+  // comprobar si ya son visibles
   benefitCards.forEach(card => {
     const rect = card.getBoundingClientRect();
-    if (rect.top < window.innerHeight - 100) {
-      card.classList.add('show');
-    }
+    if (rect.top < window.innerHeight - 100) card.classList.add('show');
   });
-  
-  // 2) EFECTO CONTADOR (se activa cuando la sección de ingresos es visible)
+
+  // ========================
+  // 3. Efecto contador (cuando la sección de ingresos es visible)
+  // ========================
   const counterSection = document.getElementById('countersSection');
   const counters = document.querySelectorAll('.counter-number');
-  let counted = false;   // para que solo corra una vez
-  
+  let counted = false;
+
   function startCounters() {
     if (counted) return;
     counted = true;
     counters.forEach(counter => {
       const target = parseInt(counter.getAttribute('data-target'), 10);
       let current = 0;
-      const increment = target / 45;  // duración suave
+      const increment = target / 45;
       const updateCounter = () => {
         current += increment;
         if (current < target) {
-          // mostrar números enteros dependiendo del target
-          if (target === 19000 || target === 100 || target === 30) {
-            counter.innerText = Math.floor(current);
-          } else {
-            counter.innerText = Math.floor(current);
-          }
+          counter.innerText = Math.floor(current);
           requestAnimationFrame(updateCounter);
         } else {
-          counter.innerText = target;
-          // si es 19000 formatear con separador de miles opcional
           if (target === 19000) counter.innerText = "19,000";
-          if (target === 100) counter.innerText = "100";
-          if (target === 30) counter.innerText = "30";
-          if (target === 5) counter.innerText = "5";
+          else if (target === 100) counter.innerText = "100";
+          else if (target === 30) counter.innerText = "30";
+          else if (target === 5) counter.innerText = "5";
+          else counter.innerText = target;
         }
       };
       updateCounter();
     });
   }
-  
-  // Observador para contadores (cuando aparezca la sección)
+
   const counterObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting && !counted) {
@@ -499,77 +558,31 @@
       }
     });
   }, { threshold: 0.3 });
-  
-  if (counterSection) {
-    counterObserver.observe(counterSection);
-  }
-  
-  // si la sección ya es visible al cargar (por si se ve antes del scroll)
-  window.addEventListener('load', () => {
-    if (counterSection) {
-      const rect = counterSection.getBoundingClientRect();
-      if (rect.top < window.innerHeight - 100 && !counted) {
-        startCounters();
-      }
-    }
-    // también revisar beneficios pre-visible
-    benefitCards.forEach(card => {
-      const rect = card.getBoundingClientRect();
-      if (rect.top < window.innerHeight - 70 && !card.classList.contains('show')) {
-        card.classList.add('show');
-      }
-    });
-  });
-  
-  // 3) Pulse animación del botón está en CSS, pero agregamos micro-interacción extra
-  const btn = document.querySelector('.btn-ultra');
-  if(btn) {
-    btn.addEventListener('mouseenter', () => {
-      btn.style.animation = 'none';
-    });
-    btn.addEventListener('mouseleave', () => {
-      btn.style.animation = 'pulse-glow 2s infinite';
-    });
-  }
-  
-  // 4) Interacción video placeholder (solo simulación, se puede integrar after)
-  const videoPlace = document.querySelector('.video-placeholder');
-  if(videoPlace) {
-    videoPlace.addEventListener('click', () => {
-      // si se quiere reemplazar con un video real en el futuro, dejamos espacio.
-      // opción: mostrar alerta sugerente, pero mejor dar feedback
-      alert('🎥 Espacio reservado para video de presentación. Pronto contenido exclusivo de Adplusredes.');
-    });
-  }
-  
-  // 5) efecto adicional: Iconos animados sutiles
+  if (counterSection) counterObserver.observe(counterSection);
+  // Si ya es visible al cargar
+  if (counterSection && counterSection.getBoundingClientRect().top < window.innerHeight - 100 && !counted) startCounters();
+
+  // ========================
+  // 4. Pequeños detalles: hover en iconos y botón
+  // ========================
   const icons = document.querySelectorAll('.benefit-icon i, .counter-item i');
   icons.forEach(icon => {
     icon.style.transition = 'transform 0.2s';
-    icon.addEventListener('mouseenter', () => {
-      icon.style.transform = 'scale(1.2) rotate(2deg)';
-    });
-    icon.addEventListener('mouseleave', () => {
-      icon.style.transform = 'scale(1) rotate(0deg)';
-    });
+    icon.addEventListener('mouseenter', () => icon.style.transform = 'scale(1.2) rotate(2deg)');
+    icon.addEventListener('mouseleave', () => icon.style.transform = 'scale(1) rotate(0deg)');
   });
-  
-  // 6) tipografía mixta adicional: algunos textos random con clase highlight
-  const highlightItems = document.querySelectorAll('.counter-label');
-  highlightItems.forEach(el => {
-    el.style.fontWeight = '600';
-    el.style.letterSpacing = '-0.2px';
-  });
-  
-  // asegurar que si el usuario hace scroll rápido, los contadores arrancan correctamente
-  window.addEventListener('scroll', () => {
-    if(!counted && counterSection) {
-      const rect = counterSection.getBoundingClientRect();
-      if(rect.top < window.innerHeight - 100 && rect.bottom > 0) {
-        startCounters();
-        if(counterObserver) counterObserver.unobserve(counterSection);
-      }
-    }
+
+  const btn = document.getElementById('registerButton');
+  if (btn) {
+    btn.addEventListener('mouseenter', () => btn.style.animation = 'none');
+    btn.addEventListener('mouseleave', () => btn.style.animation = 'pulse-glow 2s infinite');
+  }
+
+  // Pequeña corrección: si por algún motivo el usuario ya había visto el video antes y termina,
+  // el intervalo se limpia correctamente. También garantizamos que si el video se reproduce
+  // nuevamente después de una pausa, se reactive el intervalo.
+  window.addEventListener('beforeunload', () => {
+    if (checkInterval) clearInterval(checkInterval);
   });
 </script>
 </body>
