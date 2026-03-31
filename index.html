@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Adplusredes | Monetización Inteligente</title>
+  <!-- Google Fonts + Font Awesome 6 -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: radial-gradient(circle at 10% 20%, #0a0f1f, #03050b);
+      font-family: 'Inter', sans-serif;
+      color: #f0f3ff;
+      line-height: 1.4;
+      scroll-behavior: smooth;
+    }
+
+    /* tipografía mixta: títulos con Space Grotesk, cuerpo con Inter */
+    h1, h2, h3, .btn, .counter-number, .highlight {
+      font-family: 'Space Grotesk', monospace;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+    }
+
+    h2 {
+      font-size: 2.6rem;
+      background: linear-gradient(135deg, #FFFFFF, #b9c8ff);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      margin-bottom: 1rem;
+      text-align: center;
+      letter-spacing: -0.02em;
+    }
+
+    .container {
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    /* secciones */
+    section {
+      margin: 5rem 0;
+    }
+
+    /* Espacio para video de presentación */
+    .video-wrapper {
+      background: rgba(10, 20, 40, 0.6);
+      backdrop-filter: blur(8px);
+      border-radius: 2rem;
+      border: 1px solid rgba(90, 150, 255, 0.3);
+      box-shadow: 0 20px 35px -15px rgba(0, 0, 0, 0.5);
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .video-placeholder {
+      aspect-ratio: 16 / 9;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(145deg, #0b1120, #050a15);
+      text-align: center;
+      gap: 1rem;
+      cursor: pointer;
+    }
+
+    .video-placeholder i {
+      font-size: 5rem;
+      color: #3b82f6;
+      filter: drop-shadow(0 0 12px #3b82f6);
+      transition: transform 0.2s ease;
+    }
+
+    .video-placeholder:hover i {
+      transform: scale(1.05);
+      color: #a855f7;
+    }
+
+    .video-placeholder p {
+      font-size: 1.2rem;
+      font-weight: 500;
+      background: rgba(59,130,246,0.2);
+      padding: 0.5rem 1.5rem;
+      border-radius: 60px;
+      backdrop-filter: blur(4px);
+    }
+
+    /* Grid de beneficios */
+    .benefits-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .benefit-card {
+      background: rgba(15, 25, 45, 0.65);
+      backdrop-filter: blur(10px);
+      border-radius: 1.8rem;
+      padding: 2rem 1.5rem;
+      text-align: center;
+      border: 1px solid rgba(59, 130, 246, 0.3);
+      transition: all 0.25s ease;
+      opacity: 0;
+      transform: translateY(35px);
+      transition: opacity 0.7s cubic-bezier(0.2, 0.9, 0.4, 1.1), transform 0.6s ease;
+      box-shadow: 0 10px 25px -8px rgba(0, 0, 0, 0.4);
+    }
+
+    .benefit-card.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .benefit-card:hover {
+      border-color: #a855f7;
+      transform: translateY(-8px);
+      background: rgba(25, 40, 65, 0.75);
+      box-shadow: 0 20px 30px -12px rgba(0, 0, 0, 0.5);
+    }
+
+    .benefit-icon {
+      font-size: 3rem;
+      margin-bottom: 1.2rem;
+      display: inline-block;
+      background: linear-gradient(135deg, #3b82f6, #a855f7);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      transition: transform 0.2s;
+    }
+
+    .benefit-card:hover .benefit-icon {
+      transform: scale(1.1);
+    }
+
+    .benefit-card h3 {
+      font-size: 1.7rem;
+      margin-bottom: 0.75rem;
+      font-weight: 700;
+    }
+
+    .benefit-card p {
+      color: #cddcff;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    /* Sección de ingresos contadores */
+    .counters-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .counter-item {
+      background: linear-gradient(125deg, rgba(20, 30, 55, 0.7), rgba(10, 18, 35, 0.8));
+      border-radius: 2rem;
+      padding: 2rem 1rem;
+      text-align: center;
+      backdrop-filter: blur(5px);
+      border: 1px solid rgba(168, 85, 247, 0.4);
+      transition: all 0.3s;
+    }
+
+    .counter-item i {
+      font-size: 2.4rem;
+      margin-bottom: 1rem;
+      background: linear-gradient(145deg, #f0a3ff, #3b82f6);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .counter-number {
+      font-size: 2.8rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #f5f9ff, #c084fc);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      line-height: 1.2;
+      margin-bottom: 0.5rem;
+    }
+
+    .counter-label {
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: #b9ceff;
+      letter-spacing: -0.2px;
+    }
+
+    .counter-sub {
+      font-size: 0.85rem;
+      color: #8aa3d9;
+      margin-top: 0.5rem;
+    }
+
+    /* Botón ultra pro */
+    .btn-pro-container {
+      text-align: center;
+      margin: 4rem 0 3rem;
+    }
+
+    .btn-ultra {
+      display: inline-block;
+      background: linear-gradient(95deg, #2563eb, #7c3aed);
+      padding: 1.2rem 2.8rem;
+      font-size: 1.4rem;
+      font-weight: 700;
+      font-family: 'Space Grotesk', monospace;
+      border-radius: 60px;
+      text-decoration: none;
+      color: white;
+      box-shadow: 0 0 15px rgba(59,130,246,0.5), 0 8px 20px rgba(0,0,0,0.3);
+      transition: all 0.25s ease;
+      animation: pulse-glow 2s infinite;
+      letter-spacing: 0.5px;
+      border: 1px solid rgba(255,255,255,0.2);
+      backdrop-filter: blur(2px);
+    }
+
+    @keyframes pulse-glow {
+      0% {
+        box-shadow: 0 0 0 0 rgba(59,130,246,0.5), 0 8px 20px rgba(0,0,0,0.3);
+        transform: scale(1);
+      }
+      70% {
+        box-shadow: 0 0 0 12px rgba(124,58,237,0.2), 0 8px 20px rgba(0,0,0,0.3);
+        transform: scale(1.01);
+      }
+      100% {
+        box-shadow: 0 0 0 0 rgba(124,58,237,0), 0 8px 20px rgba(0,0,0,0.3);
+        transform: scale(1);
+      }
+    }
+
+    .btn-ultra:hover {
+      transform: scale(1.07);
+      background: linear-gradient(95deg, #3b82f6, #9333ea);
+      box-shadow: 0 0 28px #a855f7, 0 10px 25px rgba(0,0,0,0.4);
+      animation: none;
+    }
+
+    /* Footer y disclaimers */
+    footer {
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(10px);
+      border-top: 1px solid rgba(59,130,246,0.3);
+      margin-top: 4rem;
+      padding: 2rem 1rem 1.5rem;
+    }
+
+    .footer-disclaimer {
+      max-width: 1000px;
+      margin: 0 auto 1.5rem auto;
+      text-align: center;
+      background: rgba(0, 0, 0, 0.4);
+      border-radius: 2rem;
+      padding: 1.2rem;
+      font-size: 0.85rem;
+      color: #b9ceff;
+      border-left: 3px solid #f59e0b;
+    }
+
+    .footer-disclaimer p {
+      margin: 0.4rem 0;
+    }
+
+    .footer-disclaimer strong {
+      color: #facc15;
+    }
+
+    .copyright {
+      text-align: center;
+      font-size: 0.8rem;
+      color: #8ca3cf;
+      padding-top: 1rem;
+      border-top: 1px dashed rgba(255,255,255,0.15);
+    }
+
+    /* header */
+    .logo {
+      text-align: center;
+      padding: 2rem 0 1rem;
+    }
+    .logo h1 {
+      font-size: 3rem;
+      background: linear-gradient(125deg, #fff, #9b6eff);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      font-weight: 800;
+    }
+    .logo span {
+      font-size: 1rem;
+      color: #8bb3ff;
+      letter-spacing: 1px;
+    }
+
+    /* responsive */
+    @media (max-width: 760px) {
+      .container {
+        padding: 0 1.2rem;
+      }
+      h2 {
+        font-size: 2rem;
+      }
+      .btn-ultra {
+        font-size: 1.1rem;
+        padding: 0.9rem 1.8rem;
+      }
+      .counter-number {
+        font-size: 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <!-- Header con nombre de la página -->
+  <div class="logo">
+    <h1>Adplus<span style="color:#c084fc">redes</span></h1>
+    <span>tráfico real · monetización inteligente</span>
+  </div>
+
+  <!-- ESPACIO PARA VIDEO DE PRESENTACIÓN -->
+  <section>
+    <div class="video-wrapper">
+      <div class="video-placeholder" id="videoTrigger">
+        <i class="fas fa-play-circle"></i>
+        <p>🎬 Espacio para video de presentación</p>
+        <small style="color:#9bbaff;">(Próximamente: descubre el poder de Adplusredes)</small>
+      </div>
+    </div>
+  </section>
+
+  <!-- ⚡ SECCIÓN DE BENEFICIOS (ANIMADA) -->
+  <section>
+    <h2><i class="fas fa-bolt" style="font-size: 2rem; background: none; -webkit-background-clip: unset; color: #fbbf24;"></i> Beneficios exclusivos</h2>
+    <div class="benefits-grid" id="benefitsGrid">
+      <div class="benefit-card">
+        <div class="benefit-icon"><i class="fas fa-rocket"></i></div>
+        <h3>🚀 100 CLICS MENSUALES</h3>
+        <p>Recibe tráfico real hacia tu negocio automáticamente, sin complicaciones técnicas.</p>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-icon"><i class="fas fa-envelope-open-text"></i></div>
+        <h3>📧 EMAIL MARKETING AUTOMÁTICO</h3>
+        <p>Contacta a tus miembros todos los días sin esfuerzo, campañas preconfiguradas.</p>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-icon"><i class="fas fa-map-marker-alt"></i></div>
+        <h3>📍 PUBLICIDAD LOCAL</h3>
+        <p>Genera prospectos en tu ciudad o estado, segmentación geográfica avanzada.</p>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-icon"><i class="fas fa-coins"></i></div>
+        <h3>💰 INGRESO DESDE EL DÍA 1</h3>
+        <p>Activa tu cuenta y empieza inmediatamente, sin esperar períodos de prueba.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 💸 SECCIÓN DE INGRESOS (EFECTO CONTADOR) -->
+  <section>
+    <h2><i class="fas fa-chart-line" style="color: #4ade80;"></i> Potencial de ingresos</h2>
+    <div class="counters-grid" id="countersSection">
+      <div class="counter-item">
+        <i class="fas fa-bolt"></i>
+        <div class="counter-number" data-target="30">0</div>
+        <div class="counter-label">⚡ Gana $30 por cada referido directo</div>
+        <div class="counter-sub">comisiones sin límite</div>
+      </div>
+      <div class="counter-item">
+        <i class="fas fa-trophy"></i>
+        <div class="counter-number" data-target="100">0</div>
+        <div class="counter-label">🎯 Bono de $100 semanal</div>
+        <div class="counter-sub">por rendimiento destacado</div>
+      </div>
+      <div class="counter-item">
+        <i class="fas fa-tree"></i>
+        <div class="counter-number" data-target="5">0</div>
+        <div class="counter-label">🌳 Ingresos en 5 niveles</div>
+        <div class="counter-sub">estructura residual profunda</div>
+      </div>
+      <div class="counter-item">
+        <i class="fas fa-chart-simple"></i>
+        <div class="counter-number" data-target="19000">0</div>
+        <div class="counter-label">📈 Potencial de +$19,000 mensual</div>
+        <div class="counter-sub">escala con estrategia</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 🔥 BOTÓN DE REGISTRO ULTRA PRO -->
+  <div class="btn-pro-container">
+    <a href="https://adincomenetwork.com/lc.php?id=Jobs" class="btn-ultra" target="_blank" rel="noopener noreferrer">
+      <i class="fas fa-user-plus"></i> ÚNETE AHORA Y EMPIEZA HOY
+    </a>
+  </div>
+</div>
+
+<!-- FOOTER con derechos reservados + disclaimers importantes -->
+<footer>
+  <div class="footer-disclaimer">
+    <p><strong>⚠️ AVISO IMPORTANTE:</strong> Los resultados no son garantizados. El éxito requiere <strong>disciplina, constancia y estrategia</strong>. Cada persona alcanza metas diferentes según su dedicación.</p>
+    <p><strong>🚫 Para evitar bloqueos en Facebook y otras redes:</strong> No hagas spam, respeta las políticas publicitarias, utiliza contenido orgánico de valor, no promociones enlaces de forma engañosa y construye una comunidad auténtica. La plataforma premia la calidad y consistencia.</p>
+    <p>📌 Este sistema está diseñado para emprendedores que actúan con ética y transparencia.</p>
+  </div>
+  <div class="copyright">
+    © 2025 Adplusredes | Todos los derechos reservados.  
+    <span style="display: block; font-size: 0.7rem; margin-top: 8px;">Adplusredes no es una garantía de ingresos pasivos, los resultados dependen del esfuerzo individual.</span>
+  </div>
+</footer>
+
+<script>
+  // 1) ANIMACIÓN BENEFICIOS (fade + slide con Intersection Observer)
+  const benefitCards = document.querySelectorAll('.benefit-card');
+  
+  const appearOptions = {
+    threshold: 0.2,
+    rootMargin: "0px 0px -20px 0px"
+  };
+  
+  const appearOnScroll = new IntersectionObserver(function(entries, observer) {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add('show');
+      observer.unobserve(entry.target);
+    });
+  }, appearOptions);
+  
+  benefitCards.forEach(card => {
+    appearOnScroll.observe(card);
+  });
+  
+  // agregar clase "show" si ya están visibles por si acaso
+  benefitCards.forEach(card => {
+    const rect = card.getBoundingClientRect();
+    if (rect.top < window.innerHeight - 100) {
+      card.classList.add('show');
+    }
+  });
+  
+  // 2) EFECTO CONTADOR (se activa cuando la sección de ingresos es visible)
+  const counterSection = document.getElementById('countersSection');
+  const counters = document.querySelectorAll('.counter-number');
+  let counted = false;   // para que solo corra una vez
+  
+  function startCounters() {
+    if (counted) return;
+    counted = true;
+    counters.forEach(counter => {
+      const target = parseInt(counter.getAttribute('data-target'), 10);
+      let current = 0;
+      const increment = target / 45;  // duración suave
+      const updateCounter = () => {
+        current += increment;
+        if (current < target) {
+          // mostrar números enteros dependiendo del target
+          if (target === 19000 || target === 100 || target === 30) {
+            counter.innerText = Math.floor(current);
+          } else {
+            counter.innerText = Math.floor(current);
+          }
+          requestAnimationFrame(updateCounter);
+        } else {
+          counter.innerText = target;
+          // si es 19000 formatear con separador de miles opcional
+          if (target === 19000) counter.innerText = "19,000";
+          if (target === 100) counter.innerText = "100";
+          if (target === 30) counter.innerText = "30";
+          if (target === 5) counter.innerText = "5";
+        }
+      };
+      updateCounter();
+    });
+  }
+  
+  // Observador para contadores (cuando aparezca la sección)
+  const counterObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting && !counted) {
+        startCounters();
+        counterObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.3 });
+  
+  if (counterSection) {
+    counterObserver.observe(counterSection);
+  }
+  
+  // si la sección ya es visible al cargar (por si se ve antes del scroll)
+  window.addEventListener('load', () => {
+    if (counterSection) {
+      const rect = counterSection.getBoundingClientRect();
+      if (rect.top < window.innerHeight - 100 && !counted) {
+        startCounters();
+      }
+    }
+    // también revisar beneficios pre-visible
+    benefitCards.forEach(card => {
+      const rect = card.getBoundingClientRect();
+      if (rect.top < window.innerHeight - 70 && !card.classList.contains('show')) {
+        card.classList.add('show');
+      }
+    });
+  });
+  
+  // 3) Pulse animación del botón está en CSS, pero agregamos micro-interacción extra
+  const btn = document.querySelector('.btn-ultra');
+  if(btn) {
+    btn.addEventListener('mouseenter', () => {
+      btn.style.animation = 'none';
+    });
+    btn.addEventListener('mouseleave', () => {
+      btn.style.animation = 'pulse-glow 2s infinite';
+    });
+  }
+  
+  // 4) Interacción video placeholder (solo simulación, se puede integrar after)
+  const videoPlace = document.querySelector('.video-placeholder');
+  if(videoPlace) {
+    videoPlace.addEventListener('click', () => {
+      // si se quiere reemplazar con un video real en el futuro, dejamos espacio.
+      // opción: mostrar alerta sugerente, pero mejor dar feedback
+      alert('🎥 Espacio reservado para video de presentación. Pronto contenido exclusivo de Adplusredes.');
+    });
+  }
+  
+  // 5) efecto adicional: Iconos animados sutiles
+  const icons = document.querySelectorAll('.benefit-icon i, .counter-item i');
+  icons.forEach(icon => {
+    icon.style.transition = 'transform 0.2s';
+    icon.addEventListener('mouseenter', () => {
+      icon.style.transform = 'scale(1.2) rotate(2deg)';
+    });
+    icon.addEventListener('mouseleave', () => {
+      icon.style.transform = 'scale(1) rotate(0deg)';
+    });
+  });
+  
+  // 6) tipografía mixta adicional: algunos textos random con clase highlight
+  const highlightItems = document.querySelectorAll('.counter-label');
+  highlightItems.forEach(el => {
+    el.style.fontWeight = '600';
+    el.style.letterSpacing = '-0.2px';
+  });
+  
+  // asegurar que si el usuario hace scroll rápido, los contadores arrancan correctamente
+  window.addEventListener('scroll', () => {
+    if(!counted && counterSection) {
+      const rect = counterSection.getBoundingClientRect();
+      if(rect.top < window.innerHeight - 100 && rect.bottom > 0) {
+        startCounters();
+        if(counterObserver) counterObserver.unobserve(counterSection);
+      }
+    }
+  });
+</script>
+</body>
+</html>
