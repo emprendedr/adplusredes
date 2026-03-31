@@ -22,8 +22,7 @@
       scroll-behavior: smooth;
     }
 
-    /* tipografía mixta: títulos con Space Grotesk, cuerpo con Inter */
-    h1, h2, h3, .btn, .counter-number, .highlight {
+    h1, h2, h3, .btn, .counter-number {
       font-family: 'Space Grotesk', monospace;
       font-weight: 600;
       letter-spacing: -0.02em;
@@ -37,7 +36,6 @@
       color: transparent;
       margin-bottom: 1rem;
       text-align: center;
-      letter-spacing: -0.02em;
     }
 
     .container {
@@ -46,26 +44,24 @@
       padding: 0 2rem;
     }
 
-    /* secciones */
     section {
       margin: 5rem 0;
     }
 
-    /* Espacio para video de presentación con iframe responsivo */
+    /* Video wrapper */
     .video-wrapper {
       background: rgba(10, 20, 40, 0.6);
       backdrop-filter: blur(8px);
       border-radius: 2rem;
       border: 1px solid rgba(90, 150, 255, 0.3);
-      box-shadow: 0 20px 35px -15px rgba(0, 0, 0, 0.5);
       overflow: hidden;
-      transition: all 0.3s ease;
+      box-shadow: 0 20px 35px -15px rgba(0, 0, 0, 0.5);
     }
 
     .video-container {
       position: relative;
       width: 100%;
-      padding-bottom: 56.25%; /* 16:9 aspect ratio */
+      padding-bottom: 56.25%; /* 16:9 */
       height: 0;
     }
 
@@ -78,7 +74,7 @@
       border: none;
     }
 
-    /* Grid de beneficios */
+    /* Beneficios grid */
     .benefits-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -97,7 +93,6 @@
       opacity: 0;
       transform: translateY(35px);
       transition: opacity 0.7s cubic-bezier(0.2, 0.9, 0.4, 1.1), transform 0.6s ease;
-      box-shadow: 0 10px 25px -8px rgba(0, 0, 0, 0.4);
     }
 
     .benefit-card.show {
@@ -109,13 +104,11 @@
       border-color: #a855f7;
       transform: translateY(-8px);
       background: rgba(25, 40, 65, 0.75);
-      box-shadow: 0 20px 30px -12px rgba(0, 0, 0, 0.5);
     }
 
     .benefit-icon {
       font-size: 3rem;
       margin-bottom: 1.2rem;
-      display: inline-block;
       background: linear-gradient(135deg, #3b82f6, #a855f7);
       background-clip: text;
       -webkit-background-clip: text;
@@ -130,16 +123,14 @@
     .benefit-card h3 {
       font-size: 1.7rem;
       margin-bottom: 0.75rem;
-      font-weight: 700;
     }
 
     .benefit-card p {
       color: #cddcff;
       font-size: 0.95rem;
-      line-height: 1.5;
     }
 
-    /* Sección de ingresos contadores */
+    /* Counters */
     .counters-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -154,7 +145,6 @@
       text-align: center;
       backdrop-filter: blur(5px);
       border: 1px solid rgba(168, 85, 247, 0.4);
-      transition: all 0.3s;
     }
 
     .counter-item i {
@@ -181,7 +171,6 @@
       font-size: 1.1rem;
       font-weight: 500;
       color: #b9ceff;
-      letter-spacing: -0.2px;
     }
 
     .counter-sub {
@@ -209,34 +198,23 @@
       box-shadow: 0 0 15px rgba(59,130,246,0.5), 0 8px 20px rgba(0,0,0,0.3);
       transition: all 0.25s ease;
       animation: pulse-glow 2s infinite;
-      letter-spacing: 0.5px;
       border: 1px solid rgba(255,255,255,0.2);
-      backdrop-filter: blur(2px);
     }
 
     @keyframes pulse-glow {
-      0% {
-        box-shadow: 0 0 0 0 rgba(59,130,246,0.5), 0 8px 20px rgba(0,0,0,0.3);
-        transform: scale(1);
-      }
-      70% {
-        box-shadow: 0 0 0 12px rgba(124,58,237,0.2), 0 8px 20px rgba(0,0,0,0.3);
-        transform: scale(1.01);
-      }
-      100% {
-        box-shadow: 0 0 0 0 rgba(124,58,237,0), 0 8px 20px rgba(0,0,0,0.3);
-        transform: scale(1);
-      }
+      0% { box-shadow: 0 0 0 0 rgba(59,130,246,0.5), 0 8px 20px rgba(0,0,0,0.3); transform: scale(1); }
+      70% { box-shadow: 0 0 0 12px rgba(124,58,237,0.2), 0 8px 20px rgba(0,0,0,0.3); transform: scale(1.01); }
+      100% { box-shadow: 0 0 0 0 rgba(124,58,237,0), 0 8px 20px rgba(0,0,0,0.3); transform: scale(1); }
     }
 
     .btn-ultra:hover {
       transform: scale(1.07);
       background: linear-gradient(95deg, #3b82f6, #9333ea);
-      box-shadow: 0 0 28px #a855f7, 0 10px 25px rgba(0,0,0,0.4);
+      box-shadow: 0 0 28px #a855f7;
       animation: none;
     }
 
-    /* Footer y disclaimers */
+    /* Footer */
     footer {
       background: rgba(0, 0, 0, 0.5);
       backdrop-filter: blur(10px);
@@ -273,7 +251,6 @@
       border-top: 1px dashed rgba(255,255,255,0.15);
     }
 
-    /* header */
     .logo {
       text-align: center;
       padding: 2rem 0 1rem;
@@ -289,104 +266,62 @@
     .logo span {
       font-size: 1rem;
       color: #8bb3ff;
-      letter-spacing: 1px;
     }
 
-    /* responsive */
     @media (max-width: 760px) {
-      .container {
-        padding: 0 1.2rem;
-      }
-      h2 {
-        font-size: 2rem;
-      }
-      .btn-ultra {
-        font-size: 1.1rem;
-        padding: 0.9rem 1.8rem;
-      }
-      .counter-number {
-        font-size: 2rem;
-      }
+      .container { padding: 0 1.2rem; }
+      h2 { font-size: 2rem; }
+      .btn-ultra { font-size: 1.1rem; padding: 0.9rem 1.8rem; }
+      .counter-number { font-size: 2rem; }
     }
   </style>
 </head>
 <body>
 
 <div class="container">
-  <!-- Header con nombre de la página -->
   <div class="logo">
     <h1>Adplus<span style="color:#c084fc">redes</span></h1>
     <span>tráfico real · monetización inteligente</span>
   </div>
 
-  <!-- ESPACIO PARA VIDEO DE PRESENTACIÓN (YouTube incrustado) -->
+  <!-- VIDEO CON IFRAME DIRECTO Y API PARA REDIRECCIÓN -->
   <section>
     <div class="video-wrapper">
-      <div class="video-container" id="youtube-player-container">
-        <!-- El iframe se creará dinámicamente con la API de YouTube -->
+      <div class="video-container">
+        <iframe id="youtube-video"
+          src="https://www.youtube.com/embed/F8Zzjq24vZQ?enablejsapi=1&rel=0&modestbranding=1"
+          title="Video de presentación Adplusredes"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen>
+        </iframe>
       </div>
     </div>
   </section>
 
-  <!-- ⚡ SECCIÓN DE BENEFICIOS (ANIMADA) -->
+  <!-- BENEFICIOS -->
   <section>
-    <h2><i class="fas fa-bolt" style="font-size: 2rem; background: none; -webkit-background-clip: unset; color: #fbbf24;"></i> Beneficios exclusivos</h2>
+    <h2><i class="fas fa-bolt" style="font-size: 2rem; color: #fbbf24;"></i> Beneficios exclusivos</h2>
     <div class="benefits-grid" id="benefitsGrid">
-      <div class="benefit-card">
-        <div class="benefit-icon"><i class="fas fa-rocket"></i></div>
-        <h3>🚀 100 CLICS MENSUALES</h3>
-        <p>Recibe tráfico real hacia tu negocio automáticamente, sin complicaciones técnicas.</p>
-      </div>
-      <div class="benefit-card">
-        <div class="benefit-icon"><i class="fas fa-envelope-open-text"></i></div>
-        <h3>📧 EMAIL MARKETING AUTOMÁTICO</h3>
-        <p>Contacta a tus miembros todos los días sin esfuerzo, campañas preconfiguradas.</p>
-      </div>
-      <div class="benefit-card">
-        <div class="benefit-icon"><i class="fas fa-map-marker-alt"></i></div>
-        <h3>📍 PUBLICIDAD LOCAL</h3>
-        <p>Genera prospectos en tu ciudad o estado, segmentación geográfica avanzada.</p>
-      </div>
-      <div class="benefit-card">
-        <div class="benefit-icon"><i class="fas fa-coins"></i></div>
-        <h3>💰 INGRESO DESDE EL DÍA 1</h3>
-        <p>Activa tu cuenta y empiezas inmediatamente, sin esperar períodos de prueba.</p>
-      </div>
+      <div class="benefit-card"><div class="benefit-icon"><i class="fas fa-rocket"></i></div><h3>🚀 100 CLICS MENSUALES</h3><p>Recibe tráfico real hacia tu negocio automáticamente, sin complicaciones técnicas.</p></div>
+      <div class="benefit-card"><div class="benefit-icon"><i class="fas fa-envelope-open-text"></i></div><h3>📧 EMAIL MARKETING AUTOMÁTICO</h3><p>Contacta a tus miembros todos los días sin esfuerzo, campañas preconfiguradas.</p></div>
+      <div class="benefit-card"><div class="benefit-icon"><i class="fas fa-map-marker-alt"></i></div><h3>📍 PUBLICIDAD LOCAL</h3><p>Genera prospectos en tu ciudad o estado, segmentación geográfica avanzada.</p></div>
+      <div class="benefit-card"><div class="benefit-icon"><i class="fas fa-coins"></i></div><h3>💰 INGRESO DESDE EL DÍA 1</h3><p>Activa tu cuenta y empiezas inmediatamente, sin esperar períodos de prueba.</p></div>
     </div>
   </section>
 
-  <!-- 💸 SECCIÓN DE INGRESOS (EFECTO CONTADOR) -->
+  <!-- INGRESOS CONTADOR -->
   <section>
     <h2><i class="fas fa-chart-line" style="color: #4ade80;"></i> Potencial de ingresos</h2>
     <div class="counters-grid" id="countersSection">
-      <div class="counter-item">
-        <i class="fas fa-bolt"></i>
-        <div class="counter-number" data-target="30">0</div>
-        <div class="counter-label">⚡ Gana $30 por cada referido directo</div>
-        <div class="counter-sub">comisiones sin límite</div>
-      </div>
-      <div class="counter-item">
-        <i class="fas fa-trophy"></i>
-        <div class="counter-number" data-target="100">0</div>
-        <div class="counter-label">🎯 Bono de $100 semanal</div>
-        <div class="counter-sub">por rendimiento destacado</div>
-      </div>
-      <div class="counter-item">
-        <i class="fas fa-tree"></i>
-        <div class="counter-number" data-target="5">0</div>
-        <div class="counter-label">🌳 Ingresos en 5 niveles</div>
-        <div class="counter-sub">estructura residual profunda</div>
-      </div>
-      <div class="counter-item">
-        <i class="fas fa-chart-simple"></i>
-        <div class="counter-number" data-target="19000">0</div>
-        <div class="counter-label">📈 Potencial de +$19,000 mensual</div>
-        <div class="counter-sub">escala con estrategia</div>
-      </div>
+      <div class="counter-item"><i class="fas fa-bolt"></i><div class="counter-number" data-target="30">0</div><div class="counter-label">⚡ Gana $30 por cada referido directo</div><div class="counter-sub">comisiones sin límite</div></div>
+      <div class="counter-item"><i class="fas fa-trophy"></i><div class="counter-number" data-target="100">0</div><div class="counter-label">🎯 Bono de $100 semanal</div><div class="counter-sub">por rendimiento destacado</div></div>
+      <div class="counter-item"><i class="fas fa-tree"></i><div class="counter-number" data-target="5">0</div><div class="counter-label">🌳 Ingresos en 5 niveles</div><div class="counter-sub">estructura residual profunda</div></div>
+      <div class="counter-item"><i class="fas fa-chart-simple"></i><div class="counter-number" data-target="19000">0</div><div class="counter-label">📈 Potencial de +$19,000 mensual</div><div class="counter-sub">escala con estrategia</div></div>
     </div>
   </section>
 
-  <!-- 🔥 BOTÓN DE REGISTRO ULTRA PRO -->
+  <!-- BOTÓN REGISTRO -->
   <div class="btn-pro-container">
     <a href="https://adincomenetwork.com/lc.php?id=Jobs" class="btn-ultra" target="_blank" rel="noopener noreferrer" id="registerButton">
       <i class="fas fa-user-plus"></i> ÚNETE AHORA Y EMPIEZA HOY
@@ -394,7 +329,6 @@
   </div>
 </div>
 
-<!-- FOOTER con derechos reservados + disclaimers importantes -->
 <footer>
   <div class="footer-disclaimer">
     <p><strong>⚠️ AVISO IMPORTANTE:</strong> Los resultados no son garantizados. El éxito requiere <strong>disciplina, constancia y estrategia</strong>. Cada persona alcanza metas diferentes según su dedicación.</p>
@@ -408,38 +342,27 @@
 </footer>
 
 <script>
-  // ========================
-  // 1. YouTube API y redirección 3 segundos antes del final
-  // ========================
-  const REGISTER_URL = "https://adincomenetwork.com/lc.php?id=Jobs";
+  // ====================================================
+  // 1. YouTube API: detección de tiempo y redirección a 3 segundos del final
+  // ====================================================
   let player;
-  let redirectionTriggered = false;
-  let checkInterval = null;
-  let videoDuration = 0;
+  let redirectionDone = false;
+  let timeCheckInterval = null;
 
-  // Cargar la API de YouTube de forma asíncrona
+  // Cargar la API de YouTube
   function loadYouTubeAPI() {
-    const tag = document.createElement('script');
-    tag.src = "https://www.youtube.com/iframe_api";
-    const firstScriptTag = document.getElementsByTagName('script')[0];
-    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+    const script = document.createElement('script');
+    script.src = "https://www.youtube.com/iframe_api";
+    const firstScript = document.getElementsByTagName('script')[0];
+    firstScript.parentNode.insertBefore(script, firstScript);
   }
 
   // Esta función es llamada automáticamente por la API cuando está lista
   window.onYouTubeIframeAPIReady = function() {
-    const container = document.getElementById('youtube-player-container');
-    if (!container) return;
+    const iframe = document.getElementById('youtube-video');
+    if (!iframe) return;
 
-    player = new YT.Player('youtube-player-container', {
-      videoId: 'F8Zzjq24vZQ', // ID del video de YouTube
-      playerVars: {
-        'autoplay': 0,
-        'controls': 1,
-        'rel': 0,
-        'modestbranding': 1,
-        'enablejsapi': 1,
-        'origin': window.location.origin
-      },
+    player = new YT.Player(iframe, {
       events: {
         'onReady': onPlayerReady,
         'onStateChange': onPlayerStateChange
@@ -448,96 +371,101 @@
   };
 
   function onPlayerReady(event) {
-    // Obtener la duración del video en segundos
-    videoDuration = player.getDuration();
-    console.log("Video cargado, duración: " + videoDuration + " segundos");
+    console.log("Video listo");
+    // Si el video ya estaba reproduciéndose por autoplay, empezamos a monitorear
+    if (player.getPlayerState() === YT.PlayerState.PLAYING) {
+      startTimeMonitoring();
+    }
   }
 
   function onPlayerStateChange(event) {
-    // Cuando el video comienza a reproducirse, iniciar monitoreo de tiempo
+    // Si el video comienza a reproducirse, activamos el monitoreo
     if (event.data === YT.PlayerState.PLAYING) {
-      if (checkInterval) clearInterval(checkInterval);
-      checkInterval = setInterval(checkTimeRemaining, 500);
+      startTimeMonitoring();
     }
-    // Si el video se pausa o termina normalmente, detener el monitoreo para evitar falsos positivos
-    else if (event.data === YT.PlayerState.PAUSED || event.data === YT.PlayerState.ENDED) {
-      if (checkInterval) {
-        clearInterval(checkInterval);
-        checkInterval = null;
+    // Si termina normalmente, detener y evitar falsos
+    if (event.data === YT.PlayerState.ENDED) {
+      stopTimeMonitoring();
+      if (!redirectionDone) {
+        console.log("Video terminó sin redirección (no alcanzó los 3 segundos?)");
       }
-      // Si terminó sin redirigir, aseguramos que no se dispare después
-      if (event.data === YT.PlayerState.ENDED && !redirectionTriggered) {
-        console.log("Video terminado sin redirección previa.");
-      }
+    }
+  }
+
+  function startTimeMonitoring() {
+    if (timeCheckInterval) clearInterval(timeCheckInterval);
+    timeCheckInterval = setInterval(checkTimeRemaining, 500);
+  }
+
+  function stopTimeMonitoring() {
+    if (timeCheckInterval) {
+      clearInterval(timeCheckInterval);
+      timeCheckInterval = null;
     }
   }
 
   function checkTimeRemaining() {
-    if (redirectionTriggered) {
-      if (checkInterval) clearInterval(checkInterval);
+    if (redirectionDone) {
+      stopTimeMonitoring();
       return;
     }
     if (!player || typeof player.getCurrentTime !== 'function') return;
 
-    const currentTime = player.getCurrentTime();
-    // Si aún no se ha obtenido la duración o es inválida, intentar obtenerla de nuevo
-    if (!videoDuration || videoDuration === 0) {
-      videoDuration = player.getDuration();
-      if (!videoDuration || videoDuration === 0) return;
-    }
+    const duration = player.getDuration();
+    const current = player.getCurrentTime();
+    if (!duration || duration === 0) return;
 
-    const remaining = videoDuration - currentTime;
-    // Disparar redirección cuando falten 3 segundos o menos (y evitar múltiples)
-    if (remaining <= 3.0 && remaining > 0 && !redirectionTriggered) {
-      redirectionTriggered = true;
-      if (checkInterval) clearInterval(checkInterval);
-      console.log("⏰ Faltan 3 segundos para finalizar. Redirigiendo al registro...");
-      // Redirigir al enlace de registro en la misma pestaña
-      window.location.href = REGISTER_URL;
+    const remaining = duration - current;
+    // Si faltan 3 segundos o menos, redirigimos
+    if (remaining <= 3.0 && remaining > 0) {
+      redirectionDone = true;
+      stopTimeMonitoring();
+      console.log("⏰ Redirigiendo al registro (faltan 3 segundos)");
+      window.location.href = "https://adincomenetwork.com/lc.php?id=Jobs";
     }
   }
 
-  // Cargar la API al inicio
+  // Iniciar carga de la API
   loadYouTubeAPI();
 
-  // ========================
+  // ====================================================
   // 2. Animación de beneficios (fade + slide)
-  // ========================
+  // ====================================================
   const benefitCards = document.querySelectorAll('.benefit-card');
-  const appearOptions = { threshold: 0.2, rootMargin: "0px 0px -20px 0px" };
-  const appearOnScroll = new IntersectionObserver(function(entries) {
+  const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
-      if (!entry.isIntersecting) return;
-      entry.target.classList.add('show');
-      appearOnScroll.unobserve(entry.target);
+      if (entry.isIntersecting) {
+        entry.target.classList.add('show');
+        observer.unobserve(entry.target);
+      }
     });
-  }, appearOptions);
-  benefitCards.forEach(card => appearOnScroll.observe(card));
-  // comprobar si ya son visibles
+  }, { threshold: 0.2 });
+  benefitCards.forEach(card => observer.observe(card));
+  // Forzar chequeo inicial por si ya son visibles
   benefitCards.forEach(card => {
     const rect = card.getBoundingClientRect();
     if (rect.top < window.innerHeight - 100) card.classList.add('show');
   });
 
-  // ========================
-  // 3. Efecto contador (cuando la sección de ingresos es visible)
-  // ========================
-  const counterSection = document.getElementById('countersSection');
+  // ====================================================
+  // 3. Contadores con efecto
+  // ====================================================
+  const countersSection = document.getElementById('countersSection');
   const counters = document.querySelectorAll('.counter-number');
-  let counted = false;
+  let countersStarted = false;
 
   function startCounters() {
-    if (counted) return;
-    counted = true;
+    if (countersStarted) return;
+    countersStarted = true;
     counters.forEach(counter => {
       const target = parseInt(counter.getAttribute('data-target'), 10);
       let current = 0;
-      const increment = target / 45;
-      const updateCounter = () => {
-        current += increment;
+      const step = target / 45;
+      const update = () => {
+        current += step;
         if (current < target) {
           counter.innerText = Math.floor(current);
-          requestAnimationFrame(updateCounter);
+          requestAnimationFrame(update);
         } else {
           if (target === 19000) counter.innerText = "19,000";
           else if (target === 100) counter.innerText = "100";
@@ -546,25 +474,25 @@
           else counter.innerText = target;
         }
       };
-      updateCounter();
+      update();
     });
   }
 
   const counterObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
-      if (entry.isIntersecting && !counted) {
+      if (entry.isIntersecting && !countersStarted) {
         startCounters();
         counterObserver.unobserve(entry.target);
       }
     });
   }, { threshold: 0.3 });
-  if (counterSection) counterObserver.observe(counterSection);
+  if (countersSection) counterObserver.observe(countersSection);
   // Si ya es visible al cargar
-  if (counterSection && counterSection.getBoundingClientRect().top < window.innerHeight - 100 && !counted) startCounters();
+  if (countersSection && countersSection.getBoundingClientRect().top < window.innerHeight - 100 && !countersStarted) startCounters();
 
-  // ========================
-  // 4. Pequeños detalles: hover en iconos y botón
-  // ========================
+  // ====================================================
+  // 4. Efectos extra (iconos animados, botón)
+  // ====================================================
   const icons = document.querySelectorAll('.benefit-icon i, .counter-item i');
   icons.forEach(icon => {
     icon.style.transition = 'transform 0.2s';
@@ -577,13 +505,6 @@
     btn.addEventListener('mouseenter', () => btn.style.animation = 'none');
     btn.addEventListener('mouseleave', () => btn.style.animation = 'pulse-glow 2s infinite');
   }
-
-  // Pequeña corrección: si por algún motivo el usuario ya había visto el video antes y termina,
-  // el intervalo se limpia correctamente. También garantizamos que si el video se reproduce
-  // nuevamente después de una pausa, se reactive el intervalo.
-  window.addEventListener('beforeunload', () => {
-    if (checkInterval) clearInterval(checkInterval);
-  });
 </script>
 </body>
 </html>
