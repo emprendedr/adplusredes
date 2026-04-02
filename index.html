@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-  <title>Adplusredes | Monetización Inteligente</title>
+  <title>adplusredes1 | Monetización Inteligente</title>
   <!-- Google Fonts + Font Awesome 6 -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -72,6 +72,37 @@
       width: 100%;
       height: 100%;
       border: none;
+    }
+
+    /* Botón de bonos comunitarios */
+    .bonus-button-wrapper {
+      text-align: center;
+      margin: 2rem auto 1rem;
+    }
+    .btn-bonus {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: linear-gradient(95deg, #f59e0b, #d97706);
+      padding: 1rem 2.2rem;
+      font-size: 1.3rem;
+      font-weight: 700;
+      font-family: 'Space Grotesk', monospace;
+      border-radius: 60px;
+      text-decoration: none;
+      color: #fff;
+      box-shadow: 0 0 12px rgba(245, 158, 11, 0.6);
+      transition: all 0.25s ease;
+      border: 1px solid rgba(255,215,0,0.5);
+      backdrop-filter: blur(2px);
+    }
+    .btn-bonus i {
+      font-size: 1.6rem;
+    }
+    .btn-bonus:hover {
+      transform: scale(1.05);
+      background: linear-gradient(95deg, #fbbf24, #f59e0b);
+      box-shadow: 0 0 22px #fbbf24;
     }
 
     /* Beneficios grid */
@@ -179,17 +210,22 @@
       margin-top: 0.5rem;
     }
 
-    /* Botón ultra pro */
-    .btn-pro-container {
-      text-align: center;
-      margin: 4rem 0 3rem;
+    /* Contenedor de botones dual (Registro + WhatsApp) */
+    .dual-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1.8rem;
+      margin: 3rem 0 2rem;
     }
-
+    /* Botón ultra pro (registro) */
     .btn-ultra {
-      display: inline-block;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
       background: linear-gradient(95deg, #2563eb, #7c3aed);
-      padding: 1.2rem 2.8rem;
-      font-size: 1.4rem;
+      padding: 1.2rem 2.5rem;
+      font-size: 1.3rem;
       font-weight: 700;
       font-family: 'Space Grotesk', monospace;
       border-radius: 60px;
@@ -200,13 +236,33 @@
       animation: pulse-glow 2s infinite;
       border: 1px solid rgba(255,255,255,0.2);
     }
-
+    /* Botón de WhatsApp */
+    .btn-whatsapp {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: linear-gradient(95deg, #25D366, #128C7E);
+      padding: 1.2rem 2.5rem;
+      font-size: 1.3rem;
+      font-weight: 700;
+      font-family: 'Space Grotesk', monospace;
+      border-radius: 60px;
+      text-decoration: none;
+      color: white;
+      box-shadow: 0 0 12px rgba(37, 211, 102, 0.4);
+      transition: all 0.25s ease;
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+    .btn-whatsapp:hover {
+      transform: scale(1.05);
+      background: linear-gradient(95deg, #20b859, #0e6e5f);
+      box-shadow: 0 0 20px #25D366;
+    }
     @keyframes pulse-glow {
       0% { box-shadow: 0 0 0 0 rgba(59,130,246,0.5), 0 8px 20px rgba(0,0,0,0.3); transform: scale(1); }
       70% { box-shadow: 0 0 0 12px rgba(124,58,237,0.2), 0 8px 20px rgba(0,0,0,0.3); transform: scale(1.01); }
       100% { box-shadow: 0 0 0 0 rgba(124,58,237,0), 0 8px 20px rgba(0,0,0,0.3); transform: scale(1); }
     }
-
     .btn-ultra:hover {
       transform: scale(1.07);
       background: linear-gradient(95deg, #3b82f6, #9333ea);
@@ -271,8 +327,9 @@
     @media (max-width: 760px) {
       .container { padding: 0 1.2rem; }
       h2 { font-size: 2rem; }
-      .btn-ultra { font-size: 1.1rem; padding: 0.9rem 1.8rem; }
+      .btn-ultra, .btn-whatsapp, .btn-bonus { font-size: 0.95rem; padding: 0.8rem 1.2rem; }
       .counter-number { font-size: 2rem; }
+      .dual-buttons { gap: 1rem; }
     }
   </style>
 </head>
@@ -280,17 +337,17 @@
 
 <div class="container">
   <div class="logo">
-    <h1>Adplus<span style="color:#c084fc">redes</span></h1>
+    <h1>adplus<span style="color:#c084fc">redes1</span></h1>
     <span>tráfico real · monetización inteligente</span>
   </div>
 
-  <!-- VIDEO CON IFRAME DIRECTO Y API PARA REDIRECCIÓN -->
+  <!-- VIDEO PRINCIPAL (incrustado con API y redirección) -->
   <section>
     <div class="video-wrapper">
       <div class="video-container">
         <iframe id="youtube-video"
           src="https://www.youtube.com/embed/F8Zzjq24vZQ?enablejsapi=1&rel=0&modestbranding=1"
-          title="Video de presentación Adplusredes"
+          title="Video de presentación adplusredes1"
           frameborder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowfullscreen>
@@ -298,6 +355,15 @@
       </div>
     </div>
   </section>
+
+  <!-- BOTÓN PARA VIDEO DE BONOS COMUNITARIOS -->
+  <div class="bonus-button-wrapper">
+    <a href="https://youtu.be/bsP2X7qSPAQ" class="btn-bonus" target="_blank" rel="noopener noreferrer">
+      <i class="fas fa-gift"></i> 🎁 Bonos por ser parte de nuestra comunidad
+      <i class="fas fa-external-link-alt"></i>
+    </a>
+    <p style="font-size: 0.8rem; margin-top: 0.6rem; color: #fbbf24;">✨ Accede a beneficios exclusivos viendo este video especial</p>
+  </div>
 
   <!-- BENEFICIOS -->
   <section>
@@ -321,10 +387,13 @@
     </div>
   </section>
 
-  <!-- BOTÓN REGISTRO -->
-  <div class="btn-pro-container">
+  <!-- BOTONES: REGISTRO + WHATSAPP (nuevo) -->
+  <div class="dual-buttons">
     <a href="https://adincomenetwork.com/lc.php?id=Jobs" class="btn-ultra" target="_blank" rel="noopener noreferrer" id="registerButton">
       <i class="fas fa-user-plus"></i> ÚNETE AHORA Y EMPIEZA HOY
+    </a>
+    <a href="https://wa.link/0c2iyh" class="btn-whatsapp" target="_blank" rel="noopener noreferrer">
+      <i class="fab fa-whatsapp"></i> si necesitas ayuda para ingresar contáctame
     </a>
   </div>
 </div>
@@ -336,20 +405,20 @@
     <p>📌 Este sistema está diseñado para emprendedores que actúan con ética y transparencia.</p>
   </div>
   <div class="copyright">
-    © 2025 Adplusredes | Todos los derechos reservados.  
-    <span style="display: block; font-size: 0.7rem; margin-top: 8px;">Adplusredes no es una garantía de ingresos pasivos, los resultados dependen del esfuerzo individual.</span>
+    © 2025 adplusredes1 | Todos los derechos reservados.  
+    <span style="display: block; font-size: 0.7rem; margin-top: 8px;">adplusredes1 no es una garantía de ingresos pasivos, los resultados dependen del esfuerzo individual.</span>
   </div>
 </footer>
 
 <script>
   // ====================================================
-  // 1. YouTube API: detección de tiempo y redirección a 3 segundos del final
+  // 1. YouTube API para video principal: redirección a registro (Jobs) 3 segundos antes del final
   // ====================================================
   let player;
   let redirectionDone = false;
   let timeCheckInterval = null;
+  const REGISTER_URL = "https://adincomenetwork.com/lc.php?id=Jobs";
 
-  // Cargar la API de YouTube
   function loadYouTubeAPI() {
     const script = document.createElement('script');
     script.src = "https://www.youtube.com/iframe_api";
@@ -357,11 +426,9 @@
     firstScript.parentNode.insertBefore(script, firstScript);
   }
 
-  // Esta función es llamada automáticamente por la API cuando está lista
   window.onYouTubeIframeAPIReady = function() {
     const iframe = document.getElementById('youtube-video');
     if (!iframe) return;
-
     player = new YT.Player(iframe, {
       events: {
         'onReady': onPlayerReady,
@@ -371,24 +438,15 @@
   };
 
   function onPlayerReady(event) {
-    console.log("Video listo");
-    // Si el video ya estaba reproduciéndose por autoplay, empezamos a monitorear
-    if (player.getPlayerState() === YT.PlayerState.PLAYING) {
-      startTimeMonitoring();
-    }
+    console.log("Video principal listo");
+    if (player.getPlayerState() === YT.PlayerState.PLAYING) startTimeMonitoring();
   }
 
   function onPlayerStateChange(event) {
-    // Si el video comienza a reproducirse, activamos el monitoreo
-    if (event.data === YT.PlayerState.PLAYING) {
-      startTimeMonitoring();
-    }
-    // Si termina normalmente, detener y evitar falsos
+    if (event.data === YT.PlayerState.PLAYING) startTimeMonitoring();
     if (event.data === YT.PlayerState.ENDED) {
       stopTimeMonitoring();
-      if (!redirectionDone) {
-        console.log("Video terminó sin redirección (no alcanzó los 3 segundos?)");
-      }
+      if (!redirectionDone) console.log("Video terminó sin redirección");
     }
   }
 
@@ -398,38 +456,28 @@
   }
 
   function stopTimeMonitoring() {
-    if (timeCheckInterval) {
-      clearInterval(timeCheckInterval);
-      timeCheckInterval = null;
-    }
+    if (timeCheckInterval) { clearInterval(timeCheckInterval); timeCheckInterval = null; }
   }
 
   function checkTimeRemaining() {
-    if (redirectionDone) {
-      stopTimeMonitoring();
-      return;
-    }
+    if (redirectionDone) { stopTimeMonitoring(); return; }
     if (!player || typeof player.getCurrentTime !== 'function') return;
-
     const duration = player.getDuration();
     const current = player.getCurrentTime();
     if (!duration || duration === 0) return;
-
     const remaining = duration - current;
-    // Si faltan 3 segundos o menos, redirigimos
     if (remaining <= 3.0 && remaining > 0) {
       redirectionDone = true;
       stopTimeMonitoring();
       console.log("⏰ Redirigiendo al registro (faltan 3 segundos)");
-      window.location.href = "https://adincomenetwork.com/lc.php?id=Jobs";
+      window.location.href = REGISTER_URL;
     }
   }
 
-  // Iniciar carga de la API
   loadYouTubeAPI();
 
   // ====================================================
-  // 2. Animación de beneficios (fade + slide)
+  // 2. Animación beneficios (fade + slide)
   // ====================================================
   const benefitCards = document.querySelectorAll('.benefit-card');
   const observer = new IntersectionObserver((entries) => {
@@ -441,14 +489,12 @@
     });
   }, { threshold: 0.2 });
   benefitCards.forEach(card => observer.observe(card));
-  // Forzar chequeo inicial por si ya son visibles
   benefitCards.forEach(card => {
-    const rect = card.getBoundingClientRect();
-    if (rect.top < window.innerHeight - 100) card.classList.add('show');
+    if (card.getBoundingClientRect().top < window.innerHeight - 100) card.classList.add('show');
   });
 
   // ====================================================
-  // 3. Contadores con efecto
+  // 3. Contadores
   // ====================================================
   const countersSection = document.getElementById('countersSection');
   const counters = document.querySelectorAll('.counter-number');
@@ -487,11 +533,10 @@
     });
   }, { threshold: 0.3 });
   if (countersSection) counterObserver.observe(countersSection);
-  // Si ya es visible al cargar
   if (countersSection && countersSection.getBoundingClientRect().top < window.innerHeight - 100 && !countersStarted) startCounters();
 
   // ====================================================
-  // 4. Efectos extra (iconos animados, botón)
+  // 4. Efectos extra (iconos y botón)
   // ====================================================
   const icons = document.querySelectorAll('.benefit-icon i, .counter-item i');
   icons.forEach(icon => {
@@ -500,10 +545,11 @@
     icon.addEventListener('mouseleave', () => icon.style.transform = 'scale(1) rotate(0deg)');
   });
 
-  const btn = document.getElementById('registerButton');
-  if (btn) {
-    btn.addEventListener('mouseenter', () => btn.style.animation = 'none');
-    btn.addEventListener('mouseleave', () => btn.style.animation = 'pulse-glow 2s infinite');
+  // Quitar la animación de pulsación del botón de registro al hacer hover (ya se maneja en CSS)
+  const btnRegister = document.getElementById('registerButton');
+  if (btnRegister) {
+    btnRegister.addEventListener('mouseenter', () => btnRegister.style.animation = 'none');
+    btnRegister.addEventListener('mouseleave', () => btnRegister.style.animation = 'pulse-glow 2s infinite');
   }
 </script>
 </body>
